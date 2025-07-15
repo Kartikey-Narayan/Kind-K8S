@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: single-tier-application-ingress
+  labels:
+    app: single-tier-application
+    environment: dev
+    owner: dev-team
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-http
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: single-tier-application-namespace
+
+spec:
+  tls:
+  - hosts:
+    - 3.253.79.88.nip.io
+    secretName: single-tier-application-tls
+  rules:
+  - host: 3.253.79.88.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: single-tier-application-service
+            port:
+              number: 80

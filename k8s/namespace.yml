@@ -1,0 +1,9 @@
+apiVersion: v1             
+kind: Namespace            
+
+metadata:
+  name: single-tier-application-namespace
+  labels:
+    app: single-tier-application
+    environment: dev
+    owner: dev-team

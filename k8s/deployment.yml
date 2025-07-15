@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: single-tier-application-deployment
+  labels:
+    app: single-tier-application
+    environment: dev
+    owner: dev-team
+  namespace: single-tier-application-namespace
+  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: single-tier-application
+  template:
+    metadata:
+      labels:
+        app: single-tier-application
+    spec:
+      containers:
+      - name: single-tier-application
+        image: kartikeynarayan/single-tier-application:latest
+        ports:
+        - containerPort: 80
+
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
